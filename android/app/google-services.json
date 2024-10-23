@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "111724239441",
+    "project_id": "learnology-2e37d",
+    "storage_bucket": "learnology-2e37d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111724239441:android:0d3d867bf7d73765127670",
+        "android_client_info": {
+          "package_name": "com.example.learnology"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVNhpBh0POoA6WAYL5MxHpRtS2Uu83kBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
