@@ -70,6 +70,16 @@ class SignUp extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Learnology',
+              style: TextStyle(
+                  fontSize: 35,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             MyTextField(
                 controller: userSignUpController,
                 hintText: 'Enter your name',
@@ -87,7 +97,7 @@ class SignUp extends StatelessWidget {
             MyButton(
               onTap: register,
               btnText: 'Sign Up',
-            )
+            ),
           ],
         ),
       ),

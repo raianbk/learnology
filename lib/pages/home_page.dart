@@ -7,7 +7,7 @@ import 'package:learnology/pages/list_page.dart';
 import 'package:learnology/pages/test_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

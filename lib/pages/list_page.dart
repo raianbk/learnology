@@ -12,7 +12,7 @@ class CategoriesPage extends StatelessWidget {
     'Sports',
     'Travel',
     'Food',
-    'Something',
+    'something',
   ];
 
   CategoriesPage({super.key});
