@@ -12,7 +12,6 @@ class CategoriesPage extends StatelessWidget {
     'Sports',
     'Travel',
     'Food',
-    'something',
   ];
 
   CategoriesPage({super.key});
@@ -20,8 +19,13 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Wishlist'),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Wishlist',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

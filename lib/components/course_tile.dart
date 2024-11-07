@@ -16,20 +16,16 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(10.0),
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+    return SizedBox(
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRect(
               child: Image.asset(
                 'assets/placeholder.jpg',
-                width: double.infinity,
-                height: 180,
+                // width: double.infinity,
                 fit: BoxFit.fill,
               ),
             ),
