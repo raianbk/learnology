@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnology/components/course_tile.dart';
 import 'package:learnology/model/course_model.dart';
 
 class TestPage extends StatelessWidget {
@@ -75,8 +74,8 @@ class TestPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 280,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .5,
                 width: 460,
                 child: FutureBuilder<List<Course>>(
                   future: fetchCourses(),
@@ -156,7 +155,7 @@ class TestPage extends StatelessWidget {
                       child: Text(
                         course.description,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 4,
                         style: TextStyle(
                           color: Colors.grey.shade600,
                           fontSize: 14,
