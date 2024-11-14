@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:learnology/constants.dart';
 
 class Accounts extends StatefulWidget {
-  const Accounts({Key? key}) : super(key: key);
+  const Accounts({super.key});
 
   @override
   _AccountsState createState() => _AccountsState();
@@ -29,7 +29,7 @@ class _AccountsState extends State<Accounts> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 250,
               width: 400,
               child: Column(

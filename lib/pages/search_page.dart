@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  const Search({super.key});
 
   @override
   _SearchState createState() => _SearchState();
@@ -86,6 +84,9 @@ class _SearchState extends State<Search> {
             hintText: 'Search Courses',
             hintStyle: TextStyle(color: Colors.black),
           ),
+          onChanged: (val) {
+            setState(() {});
+          },
         ),
       ),
       body: isExecuted
