@@ -7,7 +7,7 @@ import 'package:learnology/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class TestPage extends StatefulWidget {
-  TestPage({super.key});
+  const TestPage({super.key});
 
   @override
   State<TestPage> createState() => _TestPageState();
@@ -391,7 +391,10 @@ class _TestPageState extends State<TestPage> {
         itemCount: categories.length,
         itemBuilder: (context, int index) {
           return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/category',
+                    arguments: categories[index]);
+              },
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Container(

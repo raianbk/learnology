@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Wishlist',
+            label: 'Categories',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),

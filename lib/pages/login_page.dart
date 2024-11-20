@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learnology/components/my_button.dart';
 import 'package:learnology/components/text_field.dart';
-import 'package:learnology/pages/signup.dart';
 
 class LoginPage extends StatelessWidget {
   final userController = TextEditingController();
@@ -24,57 +23,62 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue[400],
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Learnology',
-              style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            MyTextField(
-              controller: userController,
-              obsecure: false,
-              hintText: 'Enter Username',
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            MyTextField(
-              controller: passwordController,
-              obsecure: true,
-              hintText: 'Enter Password',
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            MyButton(
-              onTap: signIn,
-              btnText: 'Sign In',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'New user?',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white),
-                    ))
-              ],
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Learnology',
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              MyTextField(
+                controller: userController,
+                obsecure: false,
+                hintText: 'Enter Username',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              MyTextField(
+                controller: passwordController,
+                obsecure: true,
+                hintText: 'Enter Password',
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              MyButton(
+                padValue: 15,
+                color: Colors.black,
+                onTap: signIn,
+                btnText: 'Sign In',
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'New user?',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

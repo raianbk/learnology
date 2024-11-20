@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 class MyButton extends StatelessWidget {
   final Function()? onTap;
   final String btnText;
+  final Color color;
+  final double padValue;
   const MyButton({
     super.key,
     required this.onTap,
     required this.btnText,
+    required this.color,
+    required this.padValue,
   });
 
   @override
@@ -16,10 +20,10 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.all(padValue),
+        // margin: EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-            color: Colors.black, borderRadius: BorderRadius.circular(10)),
+            color: color, borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: Text(
             btnText,

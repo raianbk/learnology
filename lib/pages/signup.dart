@@ -95,6 +95,8 @@ class SignUp extends StatelessWidget {
               height: 15,
             ),
             MyButton(
+              padValue: 10,
+              color: Colors.black,
               onTap: register,
               btnText: 'Sign Up',
             ),

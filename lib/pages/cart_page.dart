@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:learnology/components/my_button.dart';
 import 'package:learnology/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
+  const CartPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cartItems = Provider.of<CartProvider>(context).cartItems;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
       ),
       body: cartItems.isEmpty
-          ? Center(
+          ? const Center(
               child: Text('Your cart is empty!'),
             )
           : Column(
@@ -24,10 +27,17 @@ class CartPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final course = cartItems[index];
                       return ListTile(
+                        leading: Image.asset(
+                          'assets/placeholder.jpg', // Replace with the actual path or logic
+                          width: 50, // Specify the width of the image
+                          height: 50, // Specify the height of the image
+                          fit: BoxFit
+                              .cover, // Adjust how the image fits in the space
+                        ),
                         title: Text(course.title),
                         subtitle: Text('\$${course.price}'),
                         trailing: IconButton(
-                          icon: Icon(Icons.remove_circle),
+                          icon: const Icon(Icons.remove_circle),
                           onPressed: () {
                             Provider.of<CartProvider>(context, listen: false)
                                 .removeFromCart(course);
@@ -39,17 +49,19 @@ class CartPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
+                  child: MyButton(
+                    padValue: 15,
+                    color: Colors.black,
+                    btnText: 'Check Out',
+                    onTap: () {
                       // Implement checkout logic or navigation here
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                             content: Text('Checkout feature coming soon!')),
                       );
                     },
-                    child: Text('Checkout'),
                   ),
-                ),
+                )
               ],
             ),
     );
