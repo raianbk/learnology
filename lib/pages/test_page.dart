@@ -171,7 +171,7 @@ class _TestPageState extends State<TestPage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/placeholder.jpg'),
+                    image: AssetImage('assets/sale.jpg'),
                   ),
                 ),
               ),
