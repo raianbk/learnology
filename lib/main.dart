@@ -5,10 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:learnology/pages/auth_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:learnology/pages/become_instructor.dart';
 import 'package:learnology/pages/cart_page.dart';
 import 'package:learnology/pages/course_detail.dart';
 import 'package:learnology/pages/course_list.dart';
-import 'package:learnology/pages/list_page.dart';
+import 'package:learnology/pages/dashboard.dart';
+
 import 'package:learnology/pages/signup.dart';
 import 'package:learnology/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
           '/course_detail': (context) => CourseDetail(),
           '/cart': (context) => CartPage(),
           '/category': (context) => CourseListPage(),
+          '/instructor': (context) => BecomeInstructorScreen(),
+          '/dashboard': (context) => InstructorDashboard(),
         },
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(),

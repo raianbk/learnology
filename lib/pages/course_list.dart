@@ -46,14 +46,7 @@ class CourseListPage extends StatelessWidget {
                 return ListTile(
                   title: Text(course['title'] ?? 'No Title'),
                   subtitle: Text('\$${course['price'] ?? 'N/A'}'),
-                  trailing: Image.network(
-                    course['thumbnail'] ?? '',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.broken_image),
-                  ),
+                  trailing: Image(image: AssetImage('assets/placeholder.jpg')),
                   onTap: () {
                     // Handle navigation to course details if needed
                   },

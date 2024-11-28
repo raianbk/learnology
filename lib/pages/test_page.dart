@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learnology/constants.dart';
 import 'package:learnology/model/course_model.dart';
 import 'package:learnology/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,96 +16,6 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  // final Course _course;
-  // @override
-// //  void initState() {
-//     super.initState();
-//     addDummyCoursesToFirestore(); // Call the function to add dummy data
-//   }
-
-  // final List<Map<String, dynamic>> dummyCourses = [
-  //   {
-  //     "category": "Development",
-  //     "title": "Flutter Development",
-  //     "description":
-  //         "Learn Flutter and Dart from scratch. Build cross-platform apps for iOS and Android. Develop visually appealing UIs with ease.",
-  //     "price": 19.99,
-  //     "thumbnail": "https://example.com/flutter.jpg"
-  //   },
-  //   {
-  //     "category": "Data Science",
-  //     "title": "Data Science with Python",
-  //     "description":
-  //         "Master data science and machine learning concepts. Work with libraries like Pandas and Scikit-Learn. Apply Python skills to real-world projects.",
-  //     "price": 29.99,
-  //     "thumbnail": "https://example.com/python.jpg"
-  //   },
-  //   {
-  //     "category": "Marketing",
-  //     "title": "Digital Marketing",
-  //     "description":
-  //         "Grow your business with effective strategies. Understand social media, SEO, and analytics. Launch successful campaigns for any niche.",
-  //     "price": 15.99,
-  //     "thumbnail": "https://example.com/marketing.jpg"
-  //   },
-  //   {
-  //     "category": "Design",
-  //     "title": "Graphic Design Basics",
-  //     "description":
-  //         "Learn the fundamentals of graphic design. Improve visual communication and aesthetics. Explore tools like Photoshop and Illustrator.",
-  //     "price": 17.99,
-  //     "thumbnail": "https://example.com/design.jpg"
-  //   },
-  //   {
-  //     "category": "Business",
-  //     "title": "Entrepreneurship 101",
-  //     "description":
-  //         "Start your own business with confidence. Learn essential business skills and strategies. Turn ideas into successful ventures.",
-  //     "price": 24.99,
-  //     "thumbnail": "https://example.com/entrepreneurship.jpg"
-  //   },
-  //   {
-  //     "category": "Finance",
-  //     "title": "Personal Finance Management",
-  //     "description":
-  //         "Take control of your finances. Learn budgeting, saving, and investing basics. Build a secure financial future.",
-  //     "price": 12.99,
-  //     "thumbnail": "https://example.com/finance.jpg"
-  //   },
-  //   {
-  //     "category": "Health",
-  //     "title": "Yoga for Beginners",
-  //     "description":
-  //         "Start your journey into yoga practice. Learn fundamental poses and breathing techniques. Improve flexibility and relieve stress.",
-  //     "price": 10.99,
-  //     "thumbnail": "https://example.com/yoga.jpg"
-  //   },
-  //   {
-  //     "category": "Cooking",
-  //     "title": "Healthy Cooking Essentials",
-  //     "description":
-  //         "Master the basics of healthy cooking. Learn nutritious recipes and meal planning. Bring delicious and wholesome meals to your table.",
-  //     "price": 9.99,
-  //     "thumbnail": "https://example.com/cooking.jpg"
-  //   },
-  //   {
-  //     "category": "Music",
-  //     "title": "Guitar for Beginners",
-  //     "description":
-  //         "Learn to play the guitar from scratch. Master basic chords, strumming, and rhythm. Play your favorite songs with confidence.",
-  //     "price": 18.99,
-  //     "thumbnail": "https://example.com/guitar.jpg"
-  //   },
-  //   {
-  //     "category": "Photography",
-  //     "title": "Photography Essentials",
-  //     "description":
-  //         "Capture stunning photos with ease. Understand composition, lighting, and camera settings. Improve your photography skills step by step.",
-  //     "price": 22.99,
-  //     "thumbnail": "https://example.com/photography.jpg"
-  //   }
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,6 +70,7 @@ class _TestPageState extends State<TestPage> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -340,7 +253,7 @@ class _TestPageState extends State<TestPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
-                        '\$ ${course.price}',
+                        '\$${course.price}',
                         style: TextStyle(
                           color: Colors.amber,
                           fontSize: 20,
@@ -416,4 +329,61 @@ class _TestPageState extends State<TestPage> {
       );
     }
   }
+}
+
+class AppDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          // Drawer Header
+          UserAccountsDrawerHeader(
+            accountName: Text('John Doe'),
+            accountEmail: Text('${user?.email}'),
+            currentAccountPicture: CircleAvatar(
+              child: Text('JD'),
+            ),
+            decoration: BoxDecoration(color: Colors.blue),
+          ),
+          // Drawer Items
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Dashboard'),
+            onTap: () async {
+              try {
+                bool instructorStatus = await isInstructor();
+
+                if (instructorStatus) {
+                  Navigator.pushNamed(context, '/dashboard');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        'You are not an instructor yet. Please sign up first.'),
+                  ));
+                }
+              } catch (e) {}
+              ;
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<bool> isInstructor() async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) {
+    throw Exception("User not logged in");
+  }
+
+  DocumentSnapshot instructorDoc = await FirebaseFirestore.instance
+      .collection('instructors')
+      .doc(user.email)
+      .get();
+
+  return instructorDoc.exists;
 }

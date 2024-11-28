@@ -15,6 +15,7 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -57,7 +58,9 @@ class _AccountsState extends State<Accounts> {
                   Padding(
                     padding: EdgeInsets.only(top: 25),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/instructor');
+                      },
                       child: Text(
                         'Become an Instructor',
                         style: TextStyle(
