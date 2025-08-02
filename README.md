@@ -1,16 +1,23 @@
-# learnology
+# 📘 Learnology – An EdTech Course Marketplace App
 
-A new Flutter project.
+**Learnology** is a feature-rich EdTech mobile application developed using **Flutter**, designed to offer a seamless learning experience. Users can explore, purchase, and watch courses across various categories. The platform supports both **student** and **teacher** roles, enabling dynamic content interaction and course management.
 
-## Getting Started
+## 🛠️ Technologies Used
+- **Flutter** – Cross-platform mobile app development
+- **Firebase** – Backend services (Authentication, Firestore, etc.)
+- **Provider** – State management solution for managing app-wide state
 
-This project is a starting point for a Flutter application.
+## 🔑 Key Features
+- 🔐 **Authentication**: Login and Signup using Firebase Auth
+- 📚 **Course Categories**: Courses organized by categories
+- 👥 **User Roles**: Teacher and Student state separation
+- 🛒 **Cart System**: Add and remove courses from cart
+- ➕ **Course Management for Teachers**: Add, update, and delete courses
 
-A few resources to get you started if this is your first Flutter project:
+## 👨‍🏫 User Roles
+- **Students**: Browse, purchase, and view courses
+- **Teachers**: Create and manage their own courses
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Feel free to clone, fork, or contribute!
