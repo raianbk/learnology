@@ -21,35 +21,37 @@
 ---
 <h2>📸 Screenshots</h2>
 
-<table>
-  <tr>
+<table>  
+  <tr>   
     <td>
-      <img src="https://github.com/user-attachments/assets/e78d4a77-8190-42ac-a068-a473b12c989d" width="300" />
-      <p align="center">Home Screen</p>
+      <img src="https://github.com/user-attachments/assets/874205ec-6863-48fc-bb09-1e374b6f4c9e" width="300" />
+      <p align="center">Home Page</p>
     </td>
-    <td>
-      <img src="https://github.com/user-attachments/assets/6edcfb09-c43c-4b55-bc69-27099a866d6a" width="300" />
-      <p align="center">Category Page</p>
-    </td>
-  </tr>
-  <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/2723eabe-ca9f-4e3c-b516-168feecf3fef" width="300" />
       <p align="center">Course Details</p>
     </td>
-    <td>
-      <img src="https://github.com/user-attachments/assets/874205ec-6863-48fc-bb09-1e374b6f4c9e" width="300" />
-      <p align="center">Teacher Dashboard</p>
-    </td>
+
   </tr>
   <tr>
     <td>
+      <img src="https://github.com/user-attachments/assets/e78d4a77-8190-42ac-a068-a473b12c989d" width="300" />
+      <p align="center">Instructor Registration</p>
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/6edcfb09-c43c-4b55-bc69-27099a866d6a" width="300" />
+      <p align="center">Account Page</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       <img src="https://github.com/user-attachments/assets/9d3d497d-1f7a-4250-ac84-dff203cd0ebf" width="300" />
-      <p align="center">Cart</p>
+      <p align="center">Teacher Dashboard</p>
     </td>
     <td>
       <img src="https://github.com/user-attachments/assets/1c08cc8f-4de4-46b7-82fe-673a9b0a8d6e" width="300" />
-      <p align="center">Login / Signup</p>
+      <p align="center">Drawer</p>
     </td>
   </tr>
 </table>
