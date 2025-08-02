@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learnology/components/my_button.dart';
 import 'package:learnology/provider/cart_provider.dart';
@@ -11,6 +13,7 @@ class CartPage extends StatelessWidget {
     final cartItems = Provider.of<CartProvider>(context).cartItems;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Your Cart'),
       ),
@@ -26,25 +29,44 @@ class CartPage extends StatelessWidget {
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
                       final course = cartItems[index];
-                      return ListTile(
-                        leading: Image.asset(
-                          'assets/placeholder.jpg', // Replace with the actual path or logic
-                          width: 50, // Specify the width of the image
-                          height: 50, // Specify the height of the image
-                          fit: BoxFit
-                              .cover, // Adjust how the image fits in the space
-                        ),
-                        title: Text(course.title),
-                        subtitle: Text('\$${course.price}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.remove_circle),
-                          onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
-                                .removeFromCart(course);
-                          },
+                      return Card(
+                        child: ListTile(
+                          leading: Image.asset(
+                            'assets/placeholder.jpg', // Replace with the actual path or logic
+                            width: 50, // Specify the width of the image
+                            height: 50, // Specify the height of the image
+                            fit: BoxFit
+                                .cover, // Adjust how the image fits in the space
+                          ),
+                          title: Text(course.title),
+                          subtitle: Text('\$${course.price}'),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.remove_circle),
+                            onPressed: () {
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .removeFromCart(course);
+                            },
+                          ),
                         ),
                       );
                     },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text(
+                        '\$${Provider.of<CartProvider>(context, listen: true).totalPrice()}',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(

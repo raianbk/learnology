@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BecomeInstructorScreen extends StatefulWidget {
+  const BecomeInstructorScreen({super.key});
+
   @override
   _BecomeInstructorScreenState createState() => _BecomeInstructorScreenState();
 }
@@ -45,7 +47,7 @@ class _BecomeInstructorScreenState extends State<BecomeInstructorScreen> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Successfully registered as an instructor!')),
+        const SnackBar(content: Text('Successfully registered as an instructor!')),
       );
 
       Navigator.pop(context);
@@ -63,7 +65,7 @@ class _BecomeInstructorScreenState extends State<BecomeInstructorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Become an Instructor')),
+      appBar: AppBar(title: const Text('Become an Instructor')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -72,13 +74,13 @@ class _BecomeInstructorScreenState extends State<BecomeInstructorScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Full Name'),
+                decoration: const InputDecoration(labelText: 'Full Name'),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Name is required' : null,
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email Address'),
+                decoration: const InputDecoration(labelText: 'Email Address'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => value == null || !value.contains('@')
                     ? 'Enter a valid email'
@@ -86,7 +88,7 @@ class _BecomeInstructorScreenState extends State<BecomeInstructorScreen> {
               ),
               TextFormField(
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.phone,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Phone number is required'
@@ -94,15 +96,15 @@ class _BecomeInstructorScreenState extends State<BecomeInstructorScreen> {
               ),
               TextFormField(
                 controller: _bioController,
-                decoration: InputDecoration(labelText: 'Short Bio'),
+                decoration: const InputDecoration(labelText: 'Short Bio'),
                 maxLines: 3,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               _isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : ElevatedButton(
                       onPressed: registerInstructor,
-                      child: Text('Sign Up as Instructor'),
+                      child: const Text('Sign Up as Instructor'),
                     ),
             ],
           ),

@@ -1,23 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learnology/constants.dart';
+import 'package:image_picker/image_picker.dart';
 
 class InstructorDashboard extends StatelessWidget {
-  const InstructorDashboard();
+  const InstructorDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Instructor Dashboard'),
+        title: const Text('Instructor Dashboard'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddCourseScreen(),
+                  builder: (context) => const AddCourseScreen(),
                 ),
               );
             },
@@ -30,11 +32,11 @@ class InstructorDashboard extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No courses uploaded yet.'));
+            return const Center(child: Text('No courses uploaded yet.'));
           }
 
           final courses = snapshot.data!.docs;
@@ -51,11 +53,11 @@ class InstructorDashboard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () async {
                           // Delete the course
                           await FirebaseFirestore.instance
@@ -63,7 +65,7 @@ class InstructorDashboard extends StatelessWidget {
                               .doc(course.id)
                               .delete();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                                 content: Text('Course deleted successfully.')),
                           );
                         },
@@ -81,7 +83,7 @@ class InstructorDashboard extends StatelessWidget {
 }
 
 class AddCourseScreen extends StatefulWidget {
-  AddCourseScreen();
+  const AddCourseScreen({super.key});
 
   @override
   _AddCourseScreenState createState() => _AddCourseScreenState();
@@ -95,8 +97,29 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
   final _categoryController = TextEditingController();
   bool _isLoading = false;
 
+  File? _selectedImage;
+
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+    print('tapped');
+  }
+
   Future<void> addCourse() async {
     if (!_formKey.currentState!.validate()) return;
+
+    if (_selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select an image for the course.')),
+      );
+      return;
+    }
 
     setState(() {
       _isLoading = true;
@@ -108,13 +131,13 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
         'description': _descriptionController.text.trim(),
         'price': int.parse(_priceController.text.trim()),
         'category': _categoryController.text.trim(),
-        'thumbnail': '',
+        'thumbnail': _selectedImage!.path, // Store the image file path
         'createdAt': FieldValue.serverTimestamp(),
-        'imageUrl': ''
+        'imageUrl': '' // Placeholder for potential remote image URL
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Course added successfully!')),
+        const SnackBar(content: Text('Course added successfully!')),
       );
 
       Navigator.pop(context);
@@ -132,7 +155,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Course')),
+      appBar: AppBar(title: const Text('Add Course')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -141,13 +164,13 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
             children: [
               TextFormField(
                 controller: _titleController,
-                decoration: InputDecoration(labelText: 'Course Title'),
+                decoration: const InputDecoration(labelText: 'Course Title'),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Title is required' : null,
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: const InputDecoration(labelText: 'Description'),
                 maxLines: 4,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Description is required'
@@ -155,7 +178,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               ),
               TextFormField(
                 controller: _priceController,
-                decoration: InputDecoration(labelText: 'Price'),
+                decoration: const InputDecoration(labelText: 'Price'),
                 keyboardType: TextInputType.number,
                 validator: (value) =>
                     value == null || double.tryParse(value) == null
@@ -164,17 +187,28 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               ),
               TextFormField(
                 controller: _categoryController,
-                decoration: InputDecoration(labelText: 'Category'),
+                decoration: const InputDecoration(labelText: 'Category'),
                 validator: (value) => value == null || value.isEmpty
                     ? 'Category is required'
                     : null,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
+              GestureDetector(
+                onTap: pickImage,
+                child: _selectedImage == null
+                    ? Container(
+                        height: 150,
+                        color: Colors.grey[300],
+                        child: const Center(child: Text('Tap to select an image')),
+                      )
+                    : Image.file(_selectedImage!, height: 150),
+              ),
+              const SizedBox(height: 16.0),
               _isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : ElevatedButton(
                       onPressed: addCourse,
-                      child: Text('Add Course'),
+                      child: const Text('Add Course'),
                     ),
             ],
           ),

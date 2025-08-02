@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learnology/constants.dart';
 import 'package:learnology/model/course_model.dart';
 import 'package:learnology/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +17,18 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  File? imagePath;
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    String? email = user!.email;
+    String? finalName = email?.split("@gmail.com")[0];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set the color of the drawer icon
+        ),
         backgroundColor: Colors.black,
         title: const Text(
           'Featured',
@@ -161,6 +169,7 @@ class _TestPageState extends State<TestPage> {
   Future<List<Course>> fetchCourses() async {
     final snapshot =
         await FirebaseFirestore.instance.collection('Courses Collection').get();
+
     return snapshot.docs
         .map((doc) => Course.fromFirestore(doc.data()))
         .toList();
@@ -194,6 +203,7 @@ class _TestPageState extends State<TestPage> {
         itemCount: 5,
         itemBuilder: (context, int index) {
           final course = courses[index];
+
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, '/course_detail', arguments: course);
@@ -211,7 +221,9 @@ class _TestPageState extends State<TestPage> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.fitWidth,
-                          image: AssetImage('assets/placeholder.jpg'),
+                          image: imagePath == null
+                              ? AssetImage('assets/placeholder.jpg')
+                              : FileImage(imagePath!),
                         ),
                       ),
                     ),
@@ -332,17 +344,27 @@ class _TestPageState extends State<TestPage> {
 }
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    String? email = user!.email;
+    String? finalName = email?.split("@gmail.com")[0];
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           // Drawer Header
           UserAccountsDrawerHeader(
-            accountName: Text('John Doe'),
-            accountEmail: Text('${user?.email}'),
+            accountName: Text(
+              finalName!,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            accountEmail: Text(
+              '${user.email}',
+              style: TextStyle(fontSize: 18),
+            ),
             currentAccountPicture: CircleAvatar(
               child: Text('JD'),
             ),
@@ -365,7 +387,6 @@ class AppDrawer extends StatelessWidget {
                   ));
                 }
               } catch (e) {}
-              ;
             },
           ),
         ],

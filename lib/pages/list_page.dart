@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
-  CategoriesPage({super.key});
+  const CategoriesPage({super.key});
 
   Future<List<String>> fetchCategories() async {
     // Fetch data from Firestore

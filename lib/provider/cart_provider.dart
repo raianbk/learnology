@@ -16,4 +16,12 @@ class CartProvider with ChangeNotifier {
     _cartItems.remove(course);
     notifyListeners();
   }
+
+  String totalPrice() {
+    double price = 0;
+    for (int i = 0; i < _cartItems.length; i++) {
+      price += _cartItems[i].price.toDouble();
+    }
+    return price.toString();
+  }
 }

@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-import 'package:learnology/constants.dart';
 
 class Accounts extends StatefulWidget {
   const Accounts({super.key});
@@ -16,6 +15,8 @@ class _AccountsState extends State<Accounts> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    String? email = user!.email;
+    String? finalName = email?.split("@gmail.com")[0];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +39,7 @@ class _AccountsState extends State<Accounts> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Temp',
+                    finalName!,
                     style: TextStyle(color: Colors.black, fontSize: 24),
                   ),
                   Padding(
@@ -49,7 +50,7 @@ class _AccountsState extends State<Accounts> {
                         Icon(Icons.account_box_outlined, color: Colors.black),
                         SizedBox(width: 10),
                         Text(
-                          '${user?.email}',
+                          '${user.email}',
                           style: TextStyle(color: Colors.grey, fontSize: 20),
                         ),
                       ],

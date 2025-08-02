@@ -1,8 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CourseListPage extends StatelessWidget {
-  CourseListPage({super.key});
+  const CourseListPage({super.key});
 
   Future<List<Map<String, dynamic>>> fetchCoursesByCategory(
       String category) async {
@@ -12,7 +14,7 @@ class CourseListPage extends StatelessWidget {
         .get();
 
     return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
+        .map((doc) => doc.data())
         .toList();
   }
 
@@ -43,13 +45,22 @@ class CourseListPage extends StatelessWidget {
               itemCount: courses.length,
               itemBuilder: (context, index) {
                 final course = courses[index];
-                return ListTile(
-                  title: Text(course['title'] ?? 'No Title'),
-                  subtitle: Text('\$${course['price'] ?? 'N/A'}'),
-                  trailing: Image(image: AssetImage('assets/placeholder.jpg')),
-                  onTap: () {
-                    // Handle navigation to course details if needed
-                  },
+                return Card(
+                  child: ListTile(
+                    title: Text(
+                      course['title'] ?? 'No Title',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      '\$${course['price'] ?? 'N/A'}',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    trailing:
+                        Image(image: AssetImage('assets/placeholder.jpg')),
+                    onTap: () {
+                      // Handle navigation to course details if needed
+                    },
+                  ),
                 );
               },
             );
